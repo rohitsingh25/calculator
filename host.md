@@ -1,6 +1,6 @@
-# Deploying AetherCalc on Vercel
+# Deploying House of Mrida 🍃 on Vercel
 
-This guide provides step-by-step instructions to host and deploy the **AetherCalc** React application on [Vercel](https://vercel.com).
+This guide provides step-by-step instructions to host and deploy the **House of Mrida 🍃** React application on [Vercel](https://vercel.com).
 
 ---
 
@@ -54,7 +54,7 @@ The CLI will ask you a few setup questions:
 1. **Set up and deploy?** Yes (`Y`)
 2. **Which scope?** Choose your Vercel account.
 3. **Link to existing project?** No (`N`)
-4. **What's your project's name?** `aethercalc` (or hit enter to use default)
+4. **What's your project's name?** `house-of-mrida` (or hit enter to use default)
 5. **In which directory is your code located?** `./` (default)
 6. **Want to modify build settings?** No (`N`) - Vite settings are auto-detected.
 

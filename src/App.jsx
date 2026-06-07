@@ -157,7 +157,7 @@ function App() {
       <div className="calculator-card">
         {/* Decorative Header */}
         <div className="calc-header">
-          <span className="calc-logo">AetherCalc</span>
+          <span className="calc-logo">House of Mrida 🍃</span>
           <div className="calc-indicator">
             <span className="indicator-dot"></span>
             <span className={`indicator-dot ${heartActive ? 'active' : ''}`}></span>

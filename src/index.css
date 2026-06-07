@@ -1,0 +1,376 @@
+/* 
+  AetherCalc — Design System & Custom Styling
+  Responsive, Premium Glassmorphic Layout
+*/
+
+:root {
+  --bg-dark: #070a13;
+  --glass-bg: rgba(15, 23, 42, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-border-highlight: rgba(255, 255, 255, 0.12);
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  --btn-num-bg: rgba(30, 41, 59, 0.45);
+  --btn-num-border: rgba(255, 255, 255, 0.02);
+  --btn-num-text: #f1f5f9;
+  
+  --btn-op-bg: rgba(244, 63, 94, 0.08);
+  --btn-op-border: rgba(244, 63, 94, 0.2);
+  --btn-op-text: #fda4af;
+  --btn-op-hover: rgba(244, 63, 94, 0.18);
+  
+  --btn-util-bg: rgba(71, 85, 105, 0.25);
+  --btn-util-border: rgba(255, 255, 255, 0.04);
+  --btn-util-text: #cbd5e1;
+  --btn-util-hover: rgba(71, 85, 105, 0.4);
+  
+  --gradient-equals: linear-gradient(135deg, #f43f5e 0%, #e11d48 50%, #9f1239 100%);
+  --shadow-equals: 0 8px 24px -4px rgba(244, 63, 94, 0.45);
+  --shadow-equals-hover: 0 12px 30px -4px rgba(244, 63, 94, 0.65);
+  
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Ambient glow blobs in background */
+.ambient-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.glow-blob-1 {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, rgba(139, 92, 246, 0) 70%);
+  top: -150px;
+  left: -150px;
+  filter: blur(80px);
+  animation: float1 25s infinite alternate ease-in-out;
+}
+
+.glow-blob-2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(244, 63, 94, 0.12) 0%, rgba(244, 63, 94, 0) 70%);
+  bottom: -100px;
+  right: -100px;
+  filter: blur(100px);
+  animation: float2 20s infinite alternate ease-in-out;
+}
+
+@keyframes float1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(120px, 90px) scale(1.15); }
+}
+
+@keyframes float2 {
+  0% { transform: translate(0, 0) scale(1.1); }
+  100% { transform: translate(-100px, -80px) scale(0.9); }
+}
+
+/* Main Container Layout */
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  z-index: 10;
+}
+
+.calculator-card {
+  width: 100%;
+  max-width: 375px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.65), 
+              inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calculator-card:hover {
+  border-color: var(--glass-border-highlight);
+  box-shadow: 0 32px 70px -12px rgba(0, 0, 0, 0.75), 
+              inset 0 1px 1px rgba(255, 255, 255, 0.16);
+}
+
+/* Header Emblem */
+.calc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+.calc-logo {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.calc-indicator {
+  display: flex;
+  gap: 5px;
+}
+
+.indicator-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.indicator-dot.active {
+  background-color: #fb7185;
+  opacity: 1;
+  box-shadow: 0 0 8px #f43f5e;
+}
+
+/* Screen */
+.screen-container {
+  width: 100%;
+  height: 124px;
+  background: rgba(3, 7, 18, 0.65);
+  border-radius: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.history-view {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  min-height: 20px;
+  word-break: break-all;
+  text-align: right;
+  transition: opacity 0.2s ease;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.display-view {
+  font-family: 'Outfit', sans-serif;
+  color: var(--text-primary);
+  font-weight: 500;
+  text-align: right;
+  word-break: break-all;
+  white-space: nowrap;
+  transition: font-size 0.15s ease, color 0.3s ease;
+}
+
+/* Special Pulsing State for error/zero-div */
+.display-view.heart-active {
+  animation: pulseGlow 1s ease-in-out infinite alternate;
+  color: #fda4af;
+  font-weight: 600;
+}
+
+@keyframes pulseGlow {
+  0% { 
+    transform: scale(1); 
+    text-shadow: 0 0 12px rgba(244, 63, 94, 0.45); 
+  }
+  100% { 
+    transform: scale(1.03); 
+    text-shadow: 0 0 24px rgba(244, 63, 94, 0.9); 
+  }
+}
+
+/* Keyboard Grid */
+.keyboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+/* Button Stylings */
+.btn {
+  border: none;
+  outline: none;
+  height: 62px;
+  border-radius: 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn:active {
+  transform: scale(0.92);
+}
+
+/* Button Variants */
+.btn-num {
+  background: var(--btn-num-bg);
+  border: 1px solid rgba(255, 255, 255, 0.01);
+  color: var(--btn-num-text);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
+}
+
+.btn-num:hover {
+  background: rgba(45, 55, 72, 0.6);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.btn-num:active {
+  background: rgba(74, 85, 104, 0.8) !important;
+}
+
+.btn-op {
+  background: var(--btn-op-bg);
+  border: 1px solid var(--btn-op-border);
+  color: var(--btn-op-text);
+}
+
+.btn-op:hover {
+  background: var(--btn-op-hover);
+  border-color: rgba(244, 63, 94, 0.35);
+}
+
+.btn-op:active {
+  background: rgba(244, 63, 94, 0.35) !important;
+  color: #fff !important;
+}
+
+.btn-util {
+  background: var(--btn-util-bg);
+  border: 1px solid var(--btn-util-border);
+  color: var(--btn-util-text);
+}
+
+.btn-util:hover {
+  background: var(--btn-util-hover);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.btn-util:active {
+  background: rgba(148, 163, 184, 0.5) !important;
+  color: #fff !important;
+}
+
+.btn-equals {
+  grid-column: span 2;
+  background: var(--gradient-equals);
+  color: #ffffff;
+  box-shadow: var(--shadow-equals);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  font-weight: 600;
+}
+
+.btn-equals:hover {
+  box-shadow: var(--shadow-equals-hover);
+  border-color: rgba(255, 255, 255, 0.1);
+  filter: brightness(1.08);
+}
+
+.btn-equals:active {
+  transform: scale(0.94);
+  filter: brightness(0.9);
+}
+
+/* Responsiveness Settings */
+
+/* Medium Mobile Devices (Slightly smaller height/padding adjustments) */
+@media (max-width: 375px) {
+  .calculator-card {
+    padding: 20px;
+    border-radius: 24px;
+  }
+  .screen-container {
+    height: 114px;
+    margin-bottom: 20px;
+    padding: 16px;
+  }
+  .keyboard-grid {
+    gap: 10px;
+  }
+  .btn {
+    height: 56px;
+    border-radius: 14px;
+    font-size: 1.25rem;
+  }
+}
+
+/* Tiny Mobile Devices (e.g. iPhone SE / 320px screen width) */
+@media (max-width: 320px) {
+  .calculator-card {
+    padding: 14px;
+    border-radius: 20px;
+  }
+  .screen-container {
+    height: 100px;
+    margin-bottom: 16px;
+    padding: 12px;
+  }
+  .display-view {
+    font-size: 1.8rem;
+  }
+  .keyboard-grid {
+    gap: 8px;
+  }
+  .btn {
+    height: 50px;
+    border-radius: 12px;
+    font-size: 1.15rem;
+  }
+}

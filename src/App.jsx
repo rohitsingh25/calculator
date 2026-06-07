@@ -26,13 +26,23 @@ function App() {
     let currentHeartActive = heartActive
     let currentShouldReset = shouldReset
 
-    if (currentHeartActive || currentShouldReset || currentDisplay === 'Error') {
+    if (currentHeartActive || currentDisplay === 'Error') {
       currentDisplay = '0'
       setHistory('')
       setHeartActive(false)
       setShouldReset(false)
-      // Update local variables for immediate update below
-      currentDisplay = '0'
+    } else if (currentShouldReset) {
+      const isOperatorOrDecimal = ['+', '-', '*', '/', '.'].includes(val)
+      if (isOperatorOrDecimal) {
+        setHistory('')
+        setShouldReset(false)
+        currentShouldReset = false
+      } else {
+        currentDisplay = '0'
+        setHistory('')
+        setShouldReset(false)
+        currentShouldReset = false
+      }
     }
 
     if (currentDisplay === '0' && !isNaN(val)) {
